@@ -2,6 +2,7 @@ package fr.pascu.car_manager.controllers;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import fr.pascu.car_manager.models.Car;
 import fr.pascu.car_manager.repositories.CarRepository;
 
 @RestController
+@CrossOrigin()
 public class CarController {
     private final CarRepository repository;
 

@@ -16,7 +16,7 @@ public class GeneralExceptionHandler {
     }
 
     @ResponseBody
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(DifferentIdException.class)
     String differentIdExceptionHandler(DifferentIdException ex){
         return ex.getMessage();
