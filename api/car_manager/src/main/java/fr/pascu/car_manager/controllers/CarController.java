@@ -8,7 +8,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpClientErrorException.BadRequest;
 
+import fr.pascu.car_manager.exceptions.CarNotFoundException;
+import fr.pascu.car_manager.exceptions.DifferentIdException;
 import fr.pascu.car_manager.models.Car;
 import fr.pascu.car_manager.repositories.CarRepository;
 
@@ -27,7 +30,10 @@ public class CarController {
 
     @GetMapping("/cars/{id}")
     Car one(@PathVariable String id){
-        return this.repository.findById(id).get();
+        return this.repository.findById(id)
+            .orElseThrow(
+                () -> new CarNotFoundException(id)
+            );
     }
 
     @PostMapping("/cars")
@@ -37,7 +43,13 @@ public class CarController {
 
     @PutMapping("/cars/{id}")
     Car replaceCar(@RequestBody Car newCar, @PathVariable String id){
-        Car oldCar = this.repository.findById(id).get(); 
+        if(!id.equals(newCar.getId())){
+            throw new CarNotFoundException(newCar.getId());
+        }
+        Car oldCar = this.repository.findById(id)
+            .orElseThrow(
+                () -> new CarNotFoundException(id)
+            ); 
         oldCar = newCar;
         return this.repository.save(oldCar);
     }
