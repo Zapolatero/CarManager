@@ -1,0 +1,11 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>{{ car.brand }} {{ car.model }}</mat-card-title>
+        <mat-card-subtitle> {{ car.registration }} </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <p>Driver name : {{ car.driverName }}</p>
+        <p>In Circulation since : {{ car.circulationDate | date }}</p>
+        <p>price : {{ car.estimatedPrice }} €</p>
+    </mat-card-content>
+</mat-card>

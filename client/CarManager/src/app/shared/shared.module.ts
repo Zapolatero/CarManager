@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from './material.module';
+import { CarService } from '../core/providers/car.service';
 
 
 
@@ -9,6 +10,9 @@ import { MaterialModule } from './material.module';
   exports: [
     CommonModule,
     MaterialModule
+  ],
+  providers: [
+    CarService
   ]
 })
 export class SharedModule { }

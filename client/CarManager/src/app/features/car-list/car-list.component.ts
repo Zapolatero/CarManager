@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EMPTY, map, Observable } from 'rxjs';
-import { Car } from 'src/models/Car';
-import { CarService } from 'src/providers/car.service';
+import { Car } from 'src/app/shared/models/Car';
+import { CarService } from 'src/app/core/providers/car.service';
 
 @Component({
   selector: 'app-car-list',
