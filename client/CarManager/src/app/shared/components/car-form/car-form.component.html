@@ -1,6 +1,6 @@
 <section>
     <mat-card>
-        <form [formGroup]="carForm" (submit)="onCancel(carForm)">
+        <form [formGroup]="carForm">
             <mat-form-field appearance="fill">
                 <mat-label>Brand</mat-label>
                 <mat-select name="brand" formControlName="brand" matInput>       
@@ -41,7 +41,7 @@
         </form>
         <div class="form-user-action">
           <button mat-raised-button (click)="onCancel()" color="warn">Cancel</button>
-          <button mat-raised-button color="primary" type="submit" [disabled]="carForm.invalid">Save</button>
+          <button mat-raised-button color="primary" (click)="onSave()" [disabled]="carForm.invalid" >Save</button>
         </div>
     </mat-card>
 </section>

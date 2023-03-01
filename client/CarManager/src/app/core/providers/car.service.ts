@@ -21,6 +21,14 @@ export class CarService {
   getCarBrands(): Observable<Array<string>>{
     return this.httpClient.get<Array<string>>(`${environment.carApiEndpoint}cars/brands`);
   }
+
+  postCar(car: Car): Observable<void>{
+    return this.httpClient.post<void>(`${environment.carApiEndpoint}cars`, car);
+  }
+
+  putCar(id: string, car: Car): Observable<void>{
+    return this.httpClient.put<void>(`${environment.carApiEndpoint}cars/${id}`, car);
+  }
 }
 
 export const carDetailsResolver: ResolveFn<Car> = 

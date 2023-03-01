@@ -11,7 +11,8 @@ import { Car } from '../../models/Car';
 export class CarFormComponent implements OnInit {
   carForm!: FormGroup<CarForm>;
   brands!: Array<string>;
-  @Output() cancel: EventEmitter<any | null> = new EventEmitter();
+  @Output() cancel: EventEmitter<void> = new EventEmitter();
+  @Output() saveCar: EventEmitter<any> = new EventEmitter();
 
   constructor(private activatedRoute: ActivatedRoute){
     this.carForm = new FormGroup({
@@ -31,8 +32,11 @@ export class CarFormComponent implements OnInit {
     })
   }
 
-  onCancel(car?: any){
-    this.cancel.emit(car);
+  onCancel(){
+    this.cancel.emit();
+  }
+  onSave(){
+    this.saveCar.emit(this.carForm.getRawValue());
   }
 }
 
