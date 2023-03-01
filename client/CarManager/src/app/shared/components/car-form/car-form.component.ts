@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Car } from '../../models/Car';
@@ -8,9 +8,10 @@ import { Car } from '../../models/Car';
   templateUrl: './car-form.component.html',
   styleUrls: ['./car-form.component.scss']
 })
-export class CarFormComponent implements OnInit {
+export class CarFormComponent implements OnInit, OnChanges {
   carForm!: FormGroup<CarForm>;
   brands!: Array<string>;
+  @Input() car!: Car;
   @Output() cancel: EventEmitter<void> = new EventEmitter();
   @Output() saveCar: EventEmitter<any> = new EventEmitter();
 
@@ -24,6 +25,12 @@ export class CarFormComponent implements OnInit {
       circulationDate: new FormControl("", [Validators.required]),
       estimatedPrice: new FormControl(0, [Validators.required]),
     })
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    const { car } = changes;
+    if(car.currentValue !== car.previousValue){
+      this.carForm.patchValue(this.car);
+    }
   }
 
   ngOnInit(): void {

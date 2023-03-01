@@ -6,9 +6,10 @@
         <mat-list>
             <ng-container *ngFor="let car of cars$ | async; last as isLast">
                 <mat-list-item>
-                    {{ car.brand }} {{ car.model }} - {{car.registration}}
+                    {{ car.brand }} {{ car.model }} <br>
+                    <span class="car-registration">{{car.registration}}</span>
                     <span class="action-btns">
-                        <button mat-icon-button color="accent" class="edit-btn"><mat-icon>edit</mat-icon></button>
+                        <a mat-icon-button [routerLink]="[car.id + '/edit']" color="accent" class="edit-btn"><mat-icon>edit</mat-icon></a>
                         <a [routerLink]="[car.id]" mat-icon-button color="primary" class="details-btn"><mat-icon>details</mat-icon></a>
                     </span>
                 </mat-list-item>
