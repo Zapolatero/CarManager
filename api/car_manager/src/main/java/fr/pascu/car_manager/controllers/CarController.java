@@ -9,10 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.HttpClientErrorException.BadRequest;
 
 import fr.pascu.car_manager.exceptions.CarNotFoundException;
-import fr.pascu.car_manager.exceptions.DifferentIdException;
+import fr.pascu.car_manager.models.Brand;
 import fr.pascu.car_manager.models.Car;
 import fr.pascu.car_manager.repositories.CarRepository;
 
@@ -37,6 +36,10 @@ public class CarController {
                 () -> new CarNotFoundException(id)
             );
     }
+
+    @GetMapping("/cars/brands")
+    Brand[] getBrands(){
+        return Brand.values();    }
 
     @PostMapping("/cars")
     Car newCar(@RequestBody Car car){

@@ -17,9 +17,18 @@ export class CarService {
   getCar(id: string): Observable<Car>{
     return this.httpClient.get<Car>(`${environment.carApiEndpoint}cars/${id}`);
   }
+
+  getCarBrands(): Observable<Array<string>>{
+    return this.httpClient.get<Array<string>>(`${environment.carApiEndpoint}cars/brands`);
+  }
 }
 
 export const carDetailsResolver: ResolveFn<Car> = 
   (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
     return inject(CarService).getCar(route.paramMap.get('id')!);
-  }
+}
+
+export const carBrandsResolver: ResolveFn<Array<string>> = 
+  (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
+    return inject(CarService).getCarBrands();
+}

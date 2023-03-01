@@ -16,7 +16,7 @@ export class CarDetailsComponent implements OnInit{
     this.activatedRoute.data.subscribe(({car}) => {
       console.info(car)
       this.car = car;
-  })
+    })
   }
 
 }

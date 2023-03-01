@@ -1,0 +1,47 @@
+<section>
+    <mat-card>
+        <form [formGroup]="carForm" (submit)="onCancel(carForm)">
+            <mat-form-field appearance="fill">
+                <mat-label>Brand</mat-label>
+                <mat-select name="brand" formControlName="brand" matInput>       
+                    <mat-option *ngFor="let brand of brands" [value]="brand">{{ brand }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="carForm.controls  .brand.errors?.['required']">Please, enter a brand</mat-error>
+              </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Model</mat-label>
+                <input name="model" formControlName="model" matInput>
+                <mat-error *ngIf="carForm.controls.model.errors?.['required']">Please, enter a model</mat-error>
+                <mat-error *ngIf="carForm.controls.model.errors?.['minlength']">Model must be at least 2 characters</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Driver name</mat-label>
+                <input name="driverName" formControlName="driverName" matInput>
+                <mat-error *ngIf="carForm.controls.driverName.errors?.['required']">Please, enter a driver name</mat-error>
+                <mat-error *ngIf="carForm.controls.driverName.errors?.['minlength']">DriverName must be at least 2 characters</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Registration</mat-label>
+                <input name="registration" formControlName="registration" matInput>
+                <mat-error *ngIf="carForm.controls.registration.errors?.['required']">Please, enter a registration</mat-error>
+                <mat-error *ngIf="carForm.controls.registration.errors?.['minlength']">Registration must be at least 5 characters</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Circulation date</mat-label>
+                <input name="circulationDate" formControlName="circulationDate" matInput [matDatepicker]="picker">
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="carForm.controls.circulationDate.errors?.['required']">Please, enter a circulation date</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Price</mat-label>
+                <input name="estimatedPrice" type="number" formControlName="estimatedPrice" matInput>
+                <mat-error *ngIf="carForm.controls.estimatedPrice.errors?.['required']">Please, enter a price</mat-error>
+            </mat-form-field>
+        </form>
+        <div class="form-user-action">
+          <button mat-raised-button (click)="onCancel()" color="warn">Cancel</button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="carForm.invalid">Save</button>
+        </div>
+    </mat-card>
+</section>
