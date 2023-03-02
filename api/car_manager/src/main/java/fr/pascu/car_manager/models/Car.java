@@ -32,6 +32,16 @@ public class Car {
         this.circulationDate = circulationDate;
         this.estimatedPrice = estimatedPrice;
     }
+    public Car(String id, Brands brand, String model, String driverName, String registration, Date circulationDate,
+            Double estimatedPrice) {
+        this.id = id;
+        this.brand = brand;
+        this.model = model;
+        this.driverName = driverName;
+        this.registration = registration;
+        this.circulationDate = circulationDate;
+        this.estimatedPrice = estimatedPrice;
+    }
 
     
 }

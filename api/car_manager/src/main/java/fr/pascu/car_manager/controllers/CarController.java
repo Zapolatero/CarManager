@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.mapstruct.factory.Mappers;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,40 +27,41 @@ import fr.pascu.car_manager.repositories.CarRepository;
 @RestController
 @CrossOrigin()
 public class CarController {
-    private final CarRepository repository;
+    @Autowired
+    private CarRepository repository;
     private final CarDTOMapper mapper = Mappers.getMapper(CarDTOMapper.class);
 
-    public CarController(CarRepository repository) {
-        this.repository = repository;
-    }
-
     @GetMapping("/cars")
-    List<CarDTO> all(){
-        return this.repository.findAll().stream().map(mapper::carToDTO)
-            .collect(Collectors.toList());
+    ResponseEntity<List<CarDTO>> all(){
+        return new ResponseEntity<>(
+            this.repository.findAll().stream().map(mapper::carToDTO)
+            .collect(Collectors.toList()),
+            HttpStatus.OK
+        );
     }    
 
     @GetMapping("/cars/{id}")
-    CarDTO one(@PathVariable String id){
-        return this.mapper.carToDTO(this.repository.findById(id)
-            .orElseThrow(
-                () -> new CarNotFoundException(id)
-            ));
+    ResponseEntity<CarDTO> one(@PathVariable String id){
+        CarDTO car = this.mapper.carToDTO(this.repository.findById(id)
+        .orElseThrow(
+            () -> new CarNotFoundException(id)
+        ));
+        return new ResponseEntity<CarDTO>(car, HttpStatus.OK);
     }
 
     @GetMapping("/cars/brands")
-    Brands[] getBrands(){
-        return Brands.values();    
+    ResponseEntity<Brands[]> getBrands(){
+        return new ResponseEntity<Brands[]>(Brands.values(), HttpStatus.OK);    
     }
 
     @PostMapping("/cars")
-    CarDTO newCar(@RequestBody CarDTO carDTO){
+    ResponseEntity<CarDTO> newCar(@RequestBody CarDTO carDTO){
         Car newCar = mapper.DTOToCar(carDTO);
-        return mapper.carToDTO(this.repository.save(newCar));
+        return new ResponseEntity<CarDTO>(mapper.carToDTO(this.repository.save(newCar)), HttpStatus.CREATED); 
     }
 
     @PutMapping("/cars/{id}")
-    CarDTO replaceCar(@RequestBody CarDTO newCar, @PathVariable String id){
+    ResponseEntity<CarDTO> replaceCar(@RequestBody CarDTO newCar, @PathVariable String id){
         if(!id.equals(newCar.getId())){
             throw new DifferentIdException(id, newCar.getId());
         }
@@ -66,13 +70,14 @@ public class CarController {
                 () -> new CarNotFoundException(id)
             ); 
         oldCar = mapper.DTOToCar(newCar);
-        return mapper.carToDTO(this.repository.save(oldCar));
+        return new ResponseEntity<CarDTO>(mapper.carToDTO(this.repository.save(oldCar)), HttpStatus.OK);
     }
 
     @DeleteMapping("/cars/{id}")
-    void deleteCar(@PathVariable String id){
+    ResponseEntity<HttpStatus> deleteCar(@PathVariable String id){
         Car deletedCar = this.repository.findById(id)
             .orElseThrow(() -> new CarNotFoundException(id));
         this.repository.delete(deletedCar);
+        return new ResponseEntity<HttpStatus>(HttpStatus.NO_CONTENT);
     }
 }
