@@ -7,9 +7,6 @@ import org.mapstruct.ReportingPolicy;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class CarDTOMapper {
-    final String DRIVER_NAME_ADD = "java(car.getDriverFirstname() + \" \" + car.getDriverLastname())";
-    final String DRIVER_FIRST_NAME = "java(driveFirstName.split(\" \")[0])";
-    final String DRIVER_LAST_NAME = "java(driveFirstName.split(\" \")[1])";
 
     public abstract CarDTO carToDTO(Car car);
     public abstract Car DTOToCar(CarDTO dto);
