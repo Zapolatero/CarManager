@@ -14,10 +14,19 @@ export class CarListComponent implements OnInit{
   constructor(private readonly carService: CarService){}
 
   ngOnInit(): void {
+    this.refreshList();
+  }
+  
+
+  private refreshList() {
     this.cars$ = this.carService.getAllCars().pipe(
       //order by brand
-      map( res => res.sort((a,b) => a.brand < b.brand ? -1 : 1 ))
+      map(res => res.sort((a, b) => a.brand < b.brand ? -1 : 1))
     );
+  }
+
+  deleteCar(id: string): void {
+    this.carService.deleteCar(id).subscribe(() => this.refreshList());
   }
 
 }

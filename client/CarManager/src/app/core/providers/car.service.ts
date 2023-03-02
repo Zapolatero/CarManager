@@ -29,6 +29,10 @@ export class CarService {
   putCar(id: string, car: Car): Observable<void>{
     return this.httpClient.put<void>(`${environment.carApiEndpoint}cars/${id}`, car);
   }
+
+  deleteCar(id: string): Observable<void> {
+    return this.httpClient.delete<void>(`${environment.carApiEndpoint}cars/${id}`);
+  }
 }
 
 export const carDetailsResolver: ResolveFn<Car> = 

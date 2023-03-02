@@ -11,13 +11,13 @@ import { Car } from '../../models/Car';
 export class CarFormComponent implements OnInit, OnChanges {
   carForm!: FormGroup<CarForm>;
   brands!: Array<string>;
-  @Input() car!: Car;
+  car!: Car;
   @Output() cancel: EventEmitter<void> = new EventEmitter();
   @Output() saveCar: EventEmitter<any> = new EventEmitter();
 
   constructor(private activatedRoute: ActivatedRoute){
     this.carForm = new FormGroup({
-      id: new FormControl('0'),
+      id: new FormControl(),
       brand: new FormControl("", Validators.required),
       model: new FormControl("", [Validators.required, Validators.minLength(2)]),
       driverName: new FormControl("", [Validators.required, Validators.minLength(2)]),
@@ -36,7 +36,13 @@ export class CarFormComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({brands}) => {
       this.brands = brands;
-    })
+    });
+    this.activatedRoute.data.subscribe(({car}) => {
+      this.car = car;
+      if (this.car){
+        this.carForm.patchValue(car);
+      }
+    });
   }
 
   onCancel(){

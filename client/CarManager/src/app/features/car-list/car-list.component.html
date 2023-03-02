@@ -9,8 +9,9 @@
                     {{ car.brand }} {{ car.model }} <br>
                     <span class="car-registration">{{car.registration}}</span>
                     <span class="action-btns">
+                        <button mat-icon-button (click)="deleteCar(car.id)" color="warn" class="delete-btn"><mat-icon>delete</mat-icon></button>
                         <a mat-icon-button [routerLink]="[car.id + '/edit']" color="accent" class="edit-btn"><mat-icon>edit</mat-icon></a>
-                        <a [routerLink]="[car.id]" mat-icon-button color="primary" class="details-btn"><mat-icon>details</mat-icon></a>
+                        <a [routerLink]="[car.id]" mat-icon-button color="primary" class="details-btn"><mat-icon>zoom_in</mat-icon></a>
                     </span>
                 </mat-list-item>
                 <mat-divider *ngIf="!isLast"></mat-divider>
