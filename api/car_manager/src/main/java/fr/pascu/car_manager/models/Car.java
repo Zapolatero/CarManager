@@ -21,6 +21,7 @@ public class Car {
     private String registration;
     private Date circulationDate;
     private Double estimatedPrice;
+    private boolean reliable;
     
     public Car(Brands brand, String model, String driverName, String registration, Date circulationDate,
             Double estimatedPrice) {
