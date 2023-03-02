@@ -12,7 +12,7 @@ public abstract class CarDTOMapper {
     public abstract Car DTOToCar(CarDTO dto);
 
     @AfterMapping
-    public void setReliablity(@MappingTarget Car car){
+    public void setReliability(@MappingTarget Car car){
         switch(car.getBrand()){
             case Peugeot:
             case Fiat:

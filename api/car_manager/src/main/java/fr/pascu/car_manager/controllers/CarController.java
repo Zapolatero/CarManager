@@ -72,7 +72,7 @@ public class CarController {
     @DeleteMapping("/cars/{id}")
     void deleteCar(@PathVariable String id){
         Car deletedCar = this.repository.findById(id)
-        .orElseThrow(() -> new CarNotFoundException(id));
+            .orElseThrow(() -> new CarNotFoundException(id));
         this.repository.delete(deletedCar);
     }
 }
