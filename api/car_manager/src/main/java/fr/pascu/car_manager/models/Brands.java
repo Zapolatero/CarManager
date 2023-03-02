@@ -1,6 +1,6 @@
 package fr.pascu.car_manager.models;
 
-public enum Brand {
+public enum Brands {
     Peugeot,
     Fiat,
     Citroen,

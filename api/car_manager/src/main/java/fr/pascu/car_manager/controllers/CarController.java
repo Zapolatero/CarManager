@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.pascu.car_manager.exceptions.CarNotFoundException;
-import fr.pascu.car_manager.models.Brand;
+import fr.pascu.car_manager.exceptions.DifferentIdException;
+import fr.pascu.car_manager.models.Brands;
 import fr.pascu.car_manager.models.Car;
 import fr.pascu.car_manager.models.CarDTO;
 import fr.pascu.car_manager.models.CarDTOMapper;
@@ -45,8 +46,9 @@ public class CarController {
     }
 
     @GetMapping("/cars/brands")
-    Brand[] getBrands(){
-        return Brand.values();    }
+    Brands[] getBrands(){
+        return Brands.values();    
+    }
 
     @PostMapping("/cars")
     CarDTO newCar(@RequestBody CarDTO carDTO){
@@ -57,7 +59,7 @@ public class CarController {
     @PutMapping("/cars/{id}")
     CarDTO replaceCar(@RequestBody CarDTO newCar, @PathVariable String id){
         if(!id.equals(newCar.getId())){
-            throw new CarNotFoundException(newCar.getId());
+            throw new DifferentIdException(id, newCar.getId());
         }
         Car oldCar = this.repository.findById(id)
             .orElseThrow(

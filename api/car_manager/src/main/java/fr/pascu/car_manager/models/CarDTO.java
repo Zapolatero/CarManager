@@ -11,7 +11,7 @@ import lombok.ToString;
 @NoArgsConstructor
 public class CarDTO {
     private String id;
-    private Brand brand;
+    private Brands brand;
     private String model;
     private String driverName;
     private String registration;

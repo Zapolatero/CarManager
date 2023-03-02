@@ -15,14 +15,14 @@ import lombok.ToString;
 public class Car {
     @Id
     private String id;
-    private Brand brand;
+    private Brands brand;
     private String model;
     private String driverName;
     private String registration;
     private Date circulationDate;
     private Double estimatedPrice;
     
-    public Car(Brand brand, String model, String driverName, String registration, Date circulationDate,
+    public Car(Brands brand, String model, String driverName, String registration, Date circulationDate,
             Double estimatedPrice) {
         this.brand = brand;
         this.model = model;
