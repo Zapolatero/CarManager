@@ -21,4 +21,11 @@ public class GeneralExceptionHandler {
     String differentIdExceptionHandler(DifferentIdException ex){
         return ex.getMessage();
     }
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(InvalidCarDTOException.class)
+    String invalidCarDtoExceptionHandler(InvalidCarDTOException ex){
+        return ex.getMessage();
+    }
 }
