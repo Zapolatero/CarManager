@@ -17,7 +17,6 @@ export class CarListComponent implements OnInit{
     this.refreshList();
   }
   
-
   private refreshList() {
     this.cars$ = this.carService.getAllCars().pipe(
       //order by brand
